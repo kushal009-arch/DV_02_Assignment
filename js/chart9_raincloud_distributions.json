@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 380,
+  "height": 300,
+  "autosize": { "type": "fit-x", "contains": "padding" },
+  "padding": { "top": 10, "left": 10, "right": 15, "bottom": 5 },
+  "data": { "url": "data/australian_apparent_meat_consumption_per_person.csv" },
+  "transform": [
+    {
+      "fold": ["Poultry", "Beef_Veal", "Pig_Meat", "Sheep_Meat"],
+      "as": ["Meat_Code", "Kg_Val"]
+    },
+    {
+      "calculate": "datum.Meat_Code == 'Poultry' ? 'Poultry' : datum.Meat_Code == 'Pig_Meat' ? 'Pig Meat' : datum.Meat_Code == 'Beef_Veal' ? 'Beef & Veal' : 'Sheep Meat'",
+      "as": "Species"
+    },
+    {
+      "calculate": "random() * 14 - 7",
+      "as": "jitter"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "boxplot",
+        "extent": "min-max",
+        "size": 26,
+        "median": { "color": "#FFFFFF", "strokeWidth": 2.5 },
+        "box": { "opacity": 0.85 }
+      },
+      "encoding": {
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "title": null,
+          "sort": ["Poultry", "Beef & Veal", "Pig Meat", "Sheep Meat"],
+          "axis": { "labelFontSize": 11 }
+        },
+        "x": {
+          "field": "Kg_Val",
+          "type": "quantitative",
+          "title": "Annual Consumption Distribution (kg / person, 1988–2025)",
+          "scale": { "domain": [0, 58] },
+          "axis": { "labelFontSize": 10.5, "titleFontSize": 11 }
+        },
+        "color": {
+          "field": "Species",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Beef & Veal", "Sheep Meat", "Poultry", "Pig Meat"],
+            "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7"]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 34,
+        "opacity": 0.55,
+        "stroke": "#1E242B",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "sort": ["Poultry", "Beef & Veal", "Pig Meat", "Sheep Meat"]
+        },
+        "yOffset": { "field": "jitter", "type": "quantitative" },
+        "x": { "field": "Kg_Val", "type": "quantitative" },
+        "color": { "field": "Species", "type": "nominal", "legend": null },
+        "tooltip": [
+          { "field": "Year", "type": "nominal", "title": "Financial Year" },
+          { "field": "Species", "type": "nominal", "title": "Meat Type" },
+          { "field": "Kg_Val", "type": "quantitative", "title": "Consumption (kg/person)", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "Species": "Poultry", "x": 21.0, "note": "Widest spread: 22 to 54 kg" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -8,
+        "dy": 0,
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "fill": "#1E242B"
+      },
+      "encoding": {
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "sort": ["Poultry", "Beef & Veal", "Pig Meat", "Sheep Meat"]
+        },
+        "x": { "field": "x", "type": "quantitative" },
+        "text": { "field": "note", "type": "nominal" }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "Species": "Pig Meat", "x": 30.5, "note": "Most stable: 18 to 29 kg" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "dy": 0,
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "fill": "#1E242B"
+      },
+      "encoding": {
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "sort": ["Poultry", "Beef & Veal", "Pig Meat", "Sheep Meat"]
+        },
+        "x": { "field": "x", "type": "quantitative" },
+        "text": { "field": "note", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

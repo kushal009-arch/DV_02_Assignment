@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 330,
+  "height": 300,
+  "autosize": { "type": "fit-x", "contains": "padding" },
+  "padding": { "top": 10, "left": 5, "right": 15, "bottom": 5 },
+  "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+  "transform": [
+    { "filter": "datum.Year == '2024-25'" },
+    {
+      "calculate": "toNumber(datum.Value_AUD)",
+      "as": "Val_Num"
+    },
+    {
+      "joinaggregate": [
+        { "op": "sum", "field": "Val_Num", "as": "State_Total" }
+      ],
+      "groupby": ["State"]
+    },
+    {
+      "calculate": "(datum.Val_Num / datum.State_Total) * 100",
+      "as": "Share_Pct"
+    },
+    {
+      "calculate": "datum.Val_Num / 1000000",
+      "as": "Value_M"
+    },
+    {
+      "calculate": "datum.Livestock_Type == 'Cattle' ? 1 : datum.Livestock_Type == 'Sheep' ? 2 : datum.Livestock_Type == 'Poultry' ? 3 : datum.Livestock_Type == 'Pig' ? 4 : 5",
+      "as": "Species_Order"
+    }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadius": 2, "height": { "band": 0.76 } },
+      "encoding": {
+        "y": {
+          "field": "State",
+          "type": "nominal",
+          "title": null,
+          "sort": [
+            "Northern Territory",
+            "Queensland",
+            "Tasmania",
+            "Western Australia",
+            "New South Wales",
+            "Australian Capital Territory",
+            "Victoria",
+            "South Australia"
+          ],
+          "axis": { "labelFontSize": 11, "labelLimit": 155, "labelPadding": 6 }
+        },
+        "x": {
+          "field": "Val_Num",
+          "type": "quantitative",
+          "stack": "normalize",
+          "title": "Share of State Livestock Value (%)",
+          "axis": { "format": ".0%", "labelFontSize": 11, "tickCount": 5 }
+        },
+        "color": {
+          "field": "Livestock_Type",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Cattle", "Sheep", "Poultry", "Pig", "Other"],
+            "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#7F7F7F"]
+          },
+          "legend": {
+            "orient": "top",
+            "columns": 5,
+            "symbolLimit": 5,
+            "labelFontSize": 10.5,
+            "columnPadding": 6,
+            "offset": 8
+          }
+        },
+        "order": { "field": "Species_Order", "type": "quantitative" },
+        "tooltip": [
+          { "field": "State", "type": "nominal", "title": "State" },
+          { "field": "Livestock_Type", "type": "nominal", "title": "Species" },
+          { "field": "Share_Pct", "type": "quantitative", "title": "Share of State (%)", "format": ".1f" },
+          { "field": "Value_M", "type": "quantitative", "title": "2024–25 Value ($M AUD)", "format": "$,.1f" }
+        ]
+      }
+    },
+    {
+      "data": { "values": [{ "half": 0.5 }] },
+      "mark": {
+        "type": "rule",
+        "stroke": "#1E242B",
+        "strokeDash": [4, 4],
+        "strokeWidth": 1.3
+      },
+      "encoding": {
+        "x": { "field": "half", "type": "quantitative" }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "x": 0.5, "State": "Northern Territory", "note": "50% Parity Line" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": -19,
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "fill": "#1E242B",
+        "halo": "#FFFFFF",
+        "haloWidth": 3
+      },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": {
+          "field": "State",
+          "type": "nominal",
+          "sort": [
+            "Northern Territory",
+            "Queensland",
+            "Tasmania",
+            "Western Australia",
+            "New South Wales",
+            "Australian Capital Territory",
+            "Victoria",
+            "South Australia"
+          ]
+        },
+        "text": { "field": "note", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "values": [
+      { "Species": "Cattle / Beef", "Species_Key": "Cattle", "Production_Value_Share_Pct": 63.4, "Domestic_Diet_Share_Pct": 18.8, "Production_AUD_B": 17.11, "Consumption_Kg_Person": 20.0 },
+      { "Species": "Sheep / Lamb", "Species_Key": "Sheep", "Production_Value_Share_Pct": 19.0, "Domestic_Diet_Share_Pct": 4.9, "Production_AUD_B": 5.13, "Consumption_Kg_Person": 5.3 },
+      { "Species": "Poultry", "Species_Key": "Poultry", "Production_Value_Share_Pct": 11.0, "Domestic_Diet_Share_Pct": 50.6, "Production_AUD_B": 2.96, "Consumption_Kg_Person": 53.9 },
+      { "Species": "Pig / Pork", "Species_Key": "Pig", "Production_Value_Share_Pct": 5.8, "Domestic_Diet_Share_Pct": 25.6, "Production_AUD_B": 1.56, "Consumption_Kg_Person": 27.3 }
+    ]
+  },
+  "spacing": 8,
+  "hconcat": [
+    {
+      "width": 160,
+      "height": 260,
+      "title": { "text": "2024–25 Farm Value Share", "fontSize": 11.5, "anchor": "middle", "font": "DM Sans" },
+      "layer": [
+        {
+          "mark": { "type": "bar", "cornerRadiusEnd": 3, "height": { "band": 0.72 } },
+          "encoding": {
+            "y": {
+              "field": "Species",
+              "type": "nominal",
+              "sort": ["Cattle / Beef", "Sheep / Lamb", "Poultry", "Pig / Pork"],
+              "axis": null
+            },
+            "x": {
+              "field": "Production_Value_Share_Pct",
+              "type": "quantitative",
+              "title": "← Farm Disposal Share (%)",
+              "sort": "descending",
+              "scale": { "domain": [0, 70] },
+              "axis": { "format": ".0f", "tickCount": 4, "labelFontSize": 10.5, "titleFontSize": 10.5 }
+            },
+            "color": {
+              "field": "Species_Key",
+              "type": "nominal",
+              "scale": {
+                "domain": ["Cattle", "Sheep", "Poultry", "Pig"],
+                "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7"]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "Species", "type": "nominal", "title": "Livestock / Meat" },
+              { "field": "Production_AUD_B", "type": "quantitative", "title": "Farm Output ($B AUD)", "format": "$,.2f" },
+              { "field": "Production_Value_Share_Pct", "type": "quantitative", "title": "National Value Share (%)", "format": ".1f" }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "dx": -6,
+            "font": "DM Sans",
+            "fontSize": 10.5,
+            "fontWeight": "bold",
+            "fill": "#FFFFFF"
+          },
+          "encoding": {
+            "y": {
+              "field": "Species",
+              "type": "nominal",
+              "sort": ["Cattle / Beef", "Sheep / Lamb", "Poultry", "Pig / Pork"]
+            },
+            "x": { "field": "Production_Value_Share_Pct", "type": "quantitative" },
+            "text": { "field": "Production_Value_Share_Pct", "type": "quantitative", "format": ".1f" }
+          }
+        }
+      ]
+    },
+    {
+      "width": 70,
+      "height": 260,
+      "title": { "text": "Species", "fontSize": 11.5, "anchor": "middle", "font": "DM Sans" },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "font": "DM Sans",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "fill": "#1E242B"
+      },
+      "encoding": {
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "sort": ["Cattle / Beef", "Sheep / Lamb", "Poultry", "Pig / Pork"],
+          "axis": null
+        },
+        "text": { "field": "Species", "type": "nominal" }
+      }
+    },
+    {
+      "width": 160,
+      "height": 260,
+      "title": { "text": "2024–25 Domestic Diet Share", "fontSize": 11.5, "anchor": "middle", "font": "DM Sans" },
+      "layer": [
+        {
+          "mark": { "type": "bar", "cornerRadiusEnd": 3, "height": { "band": 0.72 } },
+          "encoding": {
+            "y": {
+              "field": "Species",
+              "type": "nominal",
+              "sort": ["Cattle / Beef", "Sheep / Lamb", "Poultry", "Pig / Pork"],
+              "axis": null
+            },
+            "x": {
+              "field": "Domestic_Diet_Share_Pct",
+              "type": "quantitative",
+              "title": "Domestic Diet Share (%) →",
+              "scale": { "domain": [0, 70] },
+              "axis": { "format": ".0f", "tickCount": 4, "labelFontSize": 10.5, "titleFontSize": 10.5 }
+            },
+            "color": {
+              "field": "Species_Key",
+              "type": "nominal",
+              "scale": {
+                "domain": ["Cattle", "Sheep", "Poultry", "Pig"],
+                "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7"]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "Species", "type": "nominal", "title": "Livestock / Meat" },
+              { "field": "Consumption_Kg_Person", "type": "quantitative", "title": "Per-Capita Consumption (kg)", "format": ".1f" },
+              { "field": "Domestic_Diet_Share_Pct", "type": "quantitative", "title": "Dietary Share (%)", "format": ".1f" }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 6,
+            "font": "DM Sans",
+            "fontSize": 10.5,
+            "fontWeight": "bold",
+            "fill": "#FFFFFF"
+          },
+          "encoding": {
+            "y": {
+              "field": "Species",
+              "type": "nominal",
+              "sort": ["Cattle / Beef", "Sheep / Lamb", "Poultry", "Pig / Pork"]
+            },
+            "x": { "field": "Domestic_Diet_Share_Pct", "type": "quantitative" },
+            "text": { "field": "Domestic_Diet_Share_Pct", "type": "quantitative", "format": ".1f" }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

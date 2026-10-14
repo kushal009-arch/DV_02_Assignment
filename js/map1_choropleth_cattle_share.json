@@ -1,0 +1,162 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 430,
+  "height": 320,
+  "autosize": { "type": "fit-x", "contains": "padding" },
+  "padding": { "top": 5, "left": 5, "right": 5, "bottom": 5 },
+  "params": [
+    {
+      "name": "SelectedYear",
+      "value": "2024-25",
+      "bind": {
+        "input": "select",
+        "options": ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"],
+        "labels": ["2020–21", "2021–22", "2022–23", "2023–24", "2024–25"],
+        "name": "Select Financial Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "equirectangular",
+    "center": [134, -28.5],
+    "scale": 590
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus_states.geojson",
+        "format": { "type": "json", "property": "features" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#EFECE6",
+        "stroke": "#B8B2A6",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.Value_AUD)",
+          "as": "Val_Num"
+        },
+        { "filter": "datum.Year == SelectedYear" },
+        {
+          "joinaggregate": [
+            { "op": "sum", "field": "Val_Num", "as": "State_Total_AUD" }
+          ],
+          "groupby": ["State"]
+        },
+        { "filter": "datum.Livestock_Type == 'Cattle'" },
+        {
+          "calculate": "(datum.Val_Num / datum.State_Total_AUD) * 100",
+          "as": "Cattle_Share_Pct"
+        },
+        {
+          "calculate": "datum.Val_Num / 1000000",
+          "as": "Cattle_AUD_M"
+        },
+        {
+          "calculate": "datum.State_Total_AUD / 1000000",
+          "as": "State_Total_M"
+        },
+        {
+          "lookup": "State",
+          "from": {
+            "data": {
+              "url": "data/aus_states.geojson",
+              "format": { "type": "json", "property": "features" }
+            },
+            "key": "State"
+          },
+          "as": "geo"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "Cattle_Share_Pct",
+          "type": "quantitative",
+          "title": "Cattle Share (%)",
+          "scale": {
+            "scheme": "yelloworangebrown",
+            "domain": [40, 95]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "gradientLength": 160,
+            "format": ".0f",
+            "titleFontSize": 10.5,
+            "labelFontSize": 10
+          }
+        },
+        "tooltip": [
+          { "field": "State", "type": "nominal", "title": "State / Territory" },
+          { "field": "Year", "type": "nominal", "title": "Financial Year" },
+          { "field": "Cattle_Share_Pct", "type": "quantitative", "title": "Cattle Share of State (%)", "format": ".1f" },
+          { "field": "Cattle_AUD_M", "type": "quantitative", "title": "Cattle Value ($M AUD)", "format": "$,.1f" },
+          { "field": "State_Total_M", "type": "quantitative", "title": "Total State Output ($M AUD)", "format": "$,.1f" }
+        ]
+      }
+    },
+    {
+      "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+      "transform": [
+        { "calculate": "toNumber(datum.Value_AUD)", "as": "Val_Num" },
+        { "filter": "datum.Year == SelectedYear" },
+        {
+          "joinaggregate": [
+            { "op": "sum", "field": "Val_Num", "as": "State_Total_AUD" }
+          ],
+          "groupby": ["State"]
+        },
+        { "filter": "datum.Livestock_Type == 'Cattle'" },
+        {
+          "filter": "datum.State == 'Northern Territory' || datum.State == 'Queensland' || datum.State == 'South Australia' || datum.State == 'Victoria'"
+        },
+        {
+          "calculate": "(datum.Val_Num / datum.State_Total_AUD) * 100",
+          "as": "Cattle_Share_Pct"
+        },
+        { "calculate": "datum.Val_Num / 1000000", "as": "Cattle_AUD_M" },
+        {
+          "calculate": "datum.State == 'Northern Territory' ? 133.5 : datum.State == 'Queensland' ? 144.5 : datum.State == 'South Australia' ? 135.5 : 144.5",
+          "as": "lon"
+        },
+        {
+          "calculate": "datum.State == 'Northern Territory' ? -19.5 : datum.State == 'Queensland' ? -23.0 : datum.State == 'South Australia' ? -30.5 : -37.0",
+          "as": "lat"
+        },
+        {
+          "calculate": "datum.State == 'Northern Territory' ? 'NT: ' + format(datum.Cattle_Share_Pct, '.1f') + '% Cattle' : datum.State == 'Queensland' ? 'QLD: ' + format(datum.Cattle_Share_Pct, '.1f') + '% ($' + format(datum.Cattle_AUD_M, ',.0f') + 'M)' : datum.State == 'South Australia' ? 'SA: ' + format(datum.Cattle_Share_Pct, '.1f') + '% (Mixed)' : 'VIC: ' + format(datum.Cattle_Share_Pct, '.1f') + '%'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontWeight": "bold",
+        "fill": "#1E242B",
+        "halo": "#FFFFFF",
+        "haloWidth": 3.0
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "label", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 430,
+  "height": 320,
+  "autosize": { "type": "fit-x", "contains": "padding" },
+  "padding": { "top": 5, "left": 5, "right": 5, "bottom": 5 },
+  "params": [
+    {
+      "name": "YearSelect",
+      "value": "2024-25",
+      "bind": {
+        "input": "select",
+        "options": ["2024-25", "2023-24", "2022-23", "2021-22", "2020-21"],
+        "labels": ["2024–25", "2023–24", "2022–23", "2021–22", "2020–21"],
+        "name": "Year: "
+      }
+    },
+    {
+      "name": "SpeciesSelect",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": ["All", "Cattle", "Sheep", "Poultry", "Pig"],
+        "labels": ["All Major Species", "Cattle Only", "Sheep Only", "Poultry Only", "Pig Only"],
+        "name": "Species: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "equirectangular",
+    "center": [134, -28.5],
+    "scale": 590
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus_states.geojson",
+        "format": { "type": "json", "property": "features" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#F2EFE9",
+        "stroke": "#C8C2B6",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.Value_AUD)",
+          "as": "Val_Num"
+        },
+        { "filter": "datum.Year == YearSelect && datum.Livestock_Type != 'Other' && datum.Val_Num > 0" },
+        { "filter": "SpeciesSelect == 'All' || datum.Livestock_Type == SpeciesSelect" },
+        {
+          "calculate": "datum.State == 'Queensland' ? 144.5 : datum.State == 'New South Wales' ? 147.0 : datum.State == 'Victoria' ? 144.3 : datum.State == 'South Australia' ? 135.5 : datum.State == 'Western Australia' ? 122.0 : datum.State == 'Tasmania' ? 146.6 : datum.State == 'Northern Territory' ? 133.5 : 149.1",
+          "as": "base_lon"
+        },
+        {
+          "calculate": "datum.State == 'Queensland' ? -22.5 : datum.State == 'New South Wales' ? -32.2 : datum.State == 'Victoria' ? -36.8 : datum.State == 'South Australia' ? -30.0 : datum.State == 'Western Australia' ? -25.5 : datum.State == 'Tasmania' ? -42.0 : datum.State == 'Northern Territory' ? -19.5 : -35.3",
+          "as": "base_lat"
+        },
+        {
+          "calculate": "SpeciesSelect != 'All' ? datum.base_lon : (datum.Livestock_Type == 'Cattle' ? datum.base_lon - 1.2 : datum.Livestock_Type == 'Sheep' ? datum.base_lon + 1.2 : datum.Livestock_Type == 'Poultry' ? datum.base_lon - 1.2 : datum.base_lon + 1.2)",
+          "as": "lon"
+        },
+        {
+          "calculate": "SpeciesSelect != 'All' ? datum.base_lat : (datum.Livestock_Type == 'Cattle' ? datum.base_lat + 0.95 : datum.Livestock_Type == 'Sheep' ? datum.base_lat + 0.95 : datum.Livestock_Type == 'Poultry' ? datum.base_lat - 0.95 : datum.base_lat - 0.95)",
+          "as": "lat"
+        },
+        {
+          "calculate": "datum.Val_Num / 1000000",
+          "as": "Value_M"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.82,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "size": {
+          "field": "Value_M",
+          "type": "quantitative",
+          "title": "Output ($M AUD)",
+          "scale": {
+            "type": "sqrt",
+            "domain": [10, 7500],
+            "range": [60, 1200]
+          },
+          "legend": {
+            "orient": "bottom-left",
+            "values": [500, 2500, 7000],
+            "format": "$,.0f",
+            "titleFontSize": 10.5,
+            "labelFontSize": 10,
+            "symbolFillColor": "transparent",
+            "symbolStrokeColor": "#4A5568",
+            "symbolStrokeWidth": 1.5,
+            "offset": 5
+          }
+        },
+        "color": {
+          "field": "Livestock_Type",
+          "type": "nominal",
+          "title": "Species",
+          "scale": {
+            "domain": ["Cattle", "Sheep", "Poultry", "Pig"],
+            "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7"]
+          },
+          "legend": { "orient": "top", "titleFontSize": 10.5, "labelFontSize": 10 }
+        },
+        "order": { "field": "Value_M", "sort": "descending" },
+        "tooltip": [
+          { "field": "State", "type": "nominal", "title": "State / Territory" },
+          { "field": "Livestock_Type", "type": "nominal", "title": "Species" },
+          { "field": "Year", "type": "nominal", "title": "Financial Year" },
+          { "field": "Value_M", "type": "quantitative", "title": "Disposal Value ($M AUD)", "format": "$,.1f" }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "lon": 144.5, "lat": -19.2, "note": "QLD: Cattle Hub" },
+          { "lon": 144.3, "lat": -39.5, "note": "VIC: Sheep & Mixed" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "fill": "#1E242B",
+        "halo": "#FFFFFF",
+        "haloWidth": 3.0
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "note", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

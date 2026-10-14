@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 380,
+  "height": 300,
+  "autosize": { "type": "fit-x", "contains": "padding" },
+  "padding": { "top": 10, "left": 10, "right": 35, "bottom": 5 },
+  "params": [
+    {
+      "name": "BumpSpecies",
+      "value": "Poultry",
+      "bind": {
+        "input": "select",
+        "options": ["Cattle", "Sheep", "Poultry", "Pig"],
+        "labels": ["Cattle Rankings", "Sheep Rankings", "Poultry Rankings", "Pig Rankings"],
+        "name": "Select Species Ranking: "
+      }
+    }
+  ],
+  "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.Value_AUD)",
+      "as": "Val_Num"
+    },
+    { "filter": "datum.Livestock_Type == BumpSpecies && datum.Val_Num > 0" },
+    {
+      "calculate": "datum.Val_Num / 1000000",
+      "as": "Value_M"
+    },
+    {
+      "window": [{ "op": "rank", "as": "Rank" }],
+      "sort": [{ "field": "Val_Num", "order": "descending" }],
+      "groupby": ["Year"]
+    },
+    {
+      "calculate": "datum.State == 'Australian Capital Territory' ? 'ACT' : datum.State == 'New South Wales' ? 'NSW' : datum.State == 'Northern Territory' ? 'NT' : datum.State == 'Queensland' ? 'QLD' : datum.State == 'South Australia' ? 'SA' : datum.State == 'Tasmania' ? 'TAS' : datum.State == 'Victoria' ? 'VIC' : 'WA'",
+      "as": "State_Short"
+    }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "line", "strokeWidth": 3, "interpolate": "monotone" },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": "Financial Year",
+          "axis": { "labelAngle": 0, "labelFontSize": 11 }
+        },
+        "y": {
+          "field": "Rank",
+          "type": "ordinal",
+          "title": "National Output Rank (1 = Highest)",
+          "axis": { "labelFontSize": 11.5 }
+        },
+        "color": {
+          "field": "State_Short",
+          "type": "nominal",
+          "scale": {
+            "domain": ["QLD", "NSW", "VIC", "SA", "WA", "TAS", "NT", "ACT"],
+            "range": ["#2B4C7E", "#8C4A27", "#4B3B78", "#2E6F65", "#9B6B24", "#6B7280", "#A3485E", "#3B7A9E"]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 130,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "Rank", "type": "ordinal" },
+        "color": { "field": "State_Short", "type": "nominal" },
+        "tooltip": [
+          { "field": "State", "type": "nominal", "title": "State" },
+          { "field": "Livestock_Type", "type": "nominal", "title": "Species" },
+          { "field": "Year", "type": "ordinal", "title": "Financial Year" },
+          { "field": "Rank", "type": "ordinal", "title": "National Rank" },
+          { "field": "Value_M", "type": "quantitative", "title": "Output ($M AUD)", "format": "$,.2f" }
+        ]
+      }
+    },
+    {
+      "transform": [{ "filter": "datum.Year == '2024-25'" }],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "font": "DM Sans",
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": { "field": "Year", "type": "ordinal" },
+        "y": { "field": "Rank", "type": "ordinal" },
+        "text": { "field": "State_Short", "type": "nominal" },
+        "color": { "field": "State_Short", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}
