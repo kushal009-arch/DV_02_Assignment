@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 340,
+  "height": 220,
+  "autosize": "pad",
+  "padding": { "top": 10, "left": 10, "right": 85, "bottom": 12 },
+  "data": { "url": "data/australian_apparent_meat_consumption_per_person.csv" },
+  "transform": [
+    {
+      "calculate": "toNumber(slice(datum.Year, 0, 4))",
+      "as": "Start_Year"
+    },
+    {
+      "fold": ["Poultry", "Pig_Meat", "Beef_Veal", "Sheep_Meat"],
+      "as": ["Meat_Code", "Intake_Kg_Person"]
+    },
+    {
+      "calculate": "datum.Meat_Code == 'Poultry' ? 'Poultry' : datum.Meat_Code == 'Pig_Meat' ? 'Pig Meat' : datum.Meat_Code == 'Beef_Veal' ? 'Beef & Veal' : 'Sheep Meat'",
+      "as": "Meat_Type"
+    },
+    {
+      "calculate": "datum.Meat_Code == 'Sheep_Meat' ? '5.3 kg (-78%)' : datum.Meat_Code == 'Poultry' ? '53.9 kg (+126%)' : format(datum.Intake_Kg_Person, '.1f') + ' kg'",
+      "as": "Display_Label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "Start_Year",
+          "type": "ordinal",
+          "title": "Financial Year (1988–89 to 2024–25)",
+          "axis": {
+            "labelAngle": 0,
+            "values": [1990, 2000, 2010, 2020],
+            "labelFontSize": 10,
+            "titleFontSize": 10.5,
+            "titlePadding": 8
+          }
+        },
+        "y": {
+          "field": "Meat_Type",
+          "type": "nominal",
+          "title": null,
+          "sort": ["Poultry", "Pig Meat", "Beef & Veal", "Sheep Meat"],
+          "axis": {
+            "labelFontSize": 11,
+            "labelFontWeight": "bold",
+            "labelPadding": 6
+          }
+        },
+        "color": {
+          "field": "Intake_Kg_Person",
+          "type": "quantitative",
+          "scale": {
+            "type": "pow",
+            "exponent": 0.65,
+            "scheme": "tealblues",
+            "domain": [0, 60]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "title": "Per-Capita Consumption (kg / person / year)",
+            "titleFontSize": 10,
+            "titleLimit": 340,
+            "labelFontSize": 9.5,
+            "gradientLength": 240,
+            "gradientThickness": 10,
+            "offset": 12
+          }
+        },
+        "tooltip": [
+          { "field": "Year", "type": "nominal", "title": "Financial Year" },
+          { "field": "Meat_Type", "type": "nominal", "title": "Species" },
+          { "field": "Intake_Kg_Person", "type": "quantitative", "format": ".1f", "title": "Intake (kg/person)" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.Start_Year == 2024" }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "font": "DM Sans",
+        "fontSize": 9.5,
+        "fontWeight": "bold",
+        "fill": "#0F172A"
+      },
+      "encoding": {
+        "x": { "field": "Start_Year", "type": "ordinal" },
+        "y": {
+          "field": "Meat_Type",
+          "type": "nominal",
+          "sort": ["Poultry", "Pig Meat", "Beef & Veal", "Sheep Meat"]
+        },
+        "text": { "field": "Display_Label", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

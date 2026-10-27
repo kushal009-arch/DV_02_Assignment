@@ -1,0 +1,178 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 420,
+  "height": 260,
+  "autosize": "pad",
+  "padding": { "top": 12, "left": 10, "right": 55, "bottom": 10 },
+  "data": { "url": "data/australian_apparent_meat_consumption_per_person.csv" },
+  "transform": [
+    {
+      "calculate": "toNumber(slice(datum.Year, 0, 4))",
+      "as": "Year_Num"
+    },
+    {
+      "fold": ["Poultry", "Pig_Meat", "Sheep_Meat", "Beef_Veal"],
+      "as": ["Meat_Code", "Kg_Per_Person"]
+    },
+    {
+      "calculate": "datum.Meat_Code == 'Poultry' ? 'Poultry' : datum.Meat_Code == 'Pig_Meat' ? 'Pig Meat' : datum.Meat_Code == 'Sheep_Meat' ? 'Sheep Meat' : 'Beef & Veal'",
+      "as": "Meat_Type"
+    },
+    {
+      "calculate": "datum.Meat_Type == 'Poultry' ? 1 : datum.Meat_Type == 'Pig Meat' ? 2 : datum.Meat_Type == 'Sheep Meat' ? 3 : 4",
+      "as": "stack_rank"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "x": {
+          "field": "Year_Num",
+          "type": "quantitative",
+          "title": "Financial Year",
+          "scale": { "domain": [1988, 2024] },
+          "axis": {
+            "format": "d",
+            "values": [1990, 1995, 2000, 2005, 2010, 2015, 2020],
+            "labelFontSize": 10.5,
+            "titleFontSize": 11,
+            "titlePadding": 8,
+            "labelPadding": 5,
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "Kg_Per_Person",
+          "type": "quantitative",
+          "stack": "zero",
+          "title": "Per-Capita Consumption (kg / person / year)",
+          "scale": { "domain": [0, 120] },
+          "axis": {
+            "values": [0, 20, 40, 60, 80, 100, 120],
+            "grid": true,
+            "gridColor": "#F1F5F9",
+            "labelFontSize": 10.5,
+            "titleFontSize": 11,
+            "titlePadding": 10,
+            "labelPadding": 6
+          }
+        },
+        "color": {
+          "field": "Meat_Type",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Poultry", "Pig Meat", "Sheep Meat", "Beef & Veal"],
+            "range": ["#009E73", "#CC79A7", "#E69F00", "#0072B2"]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "title": null,
+            "columns": 4,
+            "labelFontSize": 11,
+            "symbolType": "square",
+            "symbolSize": 70,
+            "columnPadding": 22,
+            "offset": 14
+          }
+        },
+        "order": { "field": "stack_rank", "type": "quantitative" },
+        "tooltip": [
+          { "field": "Year", "type": "nominal", "title": "Financial Year" },
+          { "field": "Meat_Type", "type": "nominal", "title": "Meat Type" },
+          { "field": "Kg_Per_Person", "type": "quantitative", "title": "Consumption (kg/person)", "format": ".1f" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#475569",
+        "strokeDash": [4, 4],
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "y": { "datum": 105 }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "Year_Num": 1989.5, "y": 105, "text": "Stable ~105 kg Annual Baseline" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": -8,
+        "font": "DM Sans",
+        "fontSize": 9.5,
+        "fontWeight": "bold",
+        "fontStyle": "italic",
+        "fill": "#334155",
+        "halo": "#FFFFFF",
+        "haloWidth": 3
+      },
+      "encoding": {
+        "x": { "field": "Year_Num", "type": "quantitative" },
+        "y": { "field": "y", "type": "quantitative" },
+        "text": { "field": "text", "type": "nominal" }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "Year_Num": 1990.5, "y": 84, "label": "1988: Beef Led (40.7 kg)" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 4,
+        "font": "DM Sans",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "fill": "#FFFFFF",
+        "halo": "#005A8D",
+        "haloWidth": 2
+      },
+      "encoding": {
+        "x": { "field": "Year_Num", "type": "quantitative" },
+        "y": { "field": "y", "type": "quantitative" },
+        "text": { "field": "label", "type": "nominal" }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "Year_Num": 2024, "y": 26.5, "label": "Poultry: 53.9 kg (+126%)" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "font": "DM Sans",
+        "fontSize": 10.5,
+        "fontWeight": "bold",
+        "fill": "#FFFFFF",
+        "halo": "#006E50",
+        "haloWidth": 2.5
+      },
+      "encoding": {
+        "x": { "field": "Year_Num", "type": "quantitative" },
+        "y": { "field": "y", "type": "quantitative" },
+        "text": { "field": "label", "type": "nominal" }
+      }
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

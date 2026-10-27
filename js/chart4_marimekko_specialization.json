@@ -1,29 +1,22 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 330,
-  "height": 300,
-  "autosize": { "type": "fit-x", "contains": "padding" },
-  "padding": { "top": 10, "left": 5, "right": 15, "bottom": 5 },
   "data": { "url": "data/australian_livestock_disposals_by_state.csv" },
+  "width": 380,
+  "height": 260,
+  "autosize": "pad",
+  "padding": { "top": 12, "left": 10, "right": 45, "bottom": 10 },
   "transform": [
     { "filter": "datum.Year == '2024-25'" },
+    { "calculate": "toNumber(datum.Value_AUD)", "as": "Val_Num" },
+    { "calculate": "datum.Val_Num / 1000000", "as": "Val_M" },
     {
-      "calculate": "toNumber(datum.Value_AUD)",
-      "as": "Val_Num"
-    },
-    {
-      "joinaggregate": [
-        { "op": "sum", "field": "Val_Num", "as": "State_Total" }
-      ],
+      "joinaggregate": [{ "op": "sum", "field": "Val_Num", "as": "State_Total" }],
       "groupby": ["State"]
     },
+    { "calculate": "(datum.Val_Num / datum.State_Total) * 100", "as": "Share_Pct" },
     {
-      "calculate": "(datum.Val_Num / datum.State_Total) * 100",
-      "as": "Share_Pct"
-    },
-    {
-      "calculate": "datum.Val_Num / 1000000",
-      "as": "Value_M"
+      "calculate": "datum.State == 'Northern Territory' ? 'NT' : datum.State == 'Queensland' ? 'QLD' : datum.State == 'Tasmania' ? 'TAS' : datum.State == 'Western Australia' ? 'WA' : datum.State == 'New South Wales' ? 'NSW' : datum.State == 'Australian Capital Territory' ? 'ACT' : datum.State == 'Victoria' ? 'VIC' : 'SA'",
+      "as": "State_Short"
     },
     {
       "calculate": "datum.Livestock_Type == 'Cattle' ? 1 : datum.Livestock_Type == 'Sheep' ? 2 : datum.Livestock_Type == 'Poultry' ? 3 : datum.Livestock_Type == 'Pig' ? 4 : 5",
@@ -32,30 +25,31 @@
   ],
   "layer": [
     {
-      "mark": { "type": "bar", "cornerRadius": 2, "height": { "band": 0.76 } },
+      "mark": { "type": "bar", "cornerRadius": 2, "height": { "band": 0.72 } },
       "encoding": {
         "y": {
-          "field": "State",
+          "field": "State_Short",
           "type": "nominal",
           "title": null,
-          "sort": [
-            "Northern Territory",
-            "Queensland",
-            "Tasmania",
-            "Western Australia",
-            "New South Wales",
-            "Australian Capital Territory",
-            "Victoria",
-            "South Australia"
-          ],
-          "axis": { "labelFontSize": 11, "labelLimit": 155, "labelPadding": 6 }
+          "sort": ["NT", "QLD", "TAS", "WA", "NSW", "ACT", "VIC", "SA"],
+          "axis": {
+            "labelFontSize": 12,
+            "labelFontWeight": "bold",
+            "labelPadding": 8
+          }
         },
         "x": {
           "field": "Val_Num",
           "type": "quantitative",
           "stack": "normalize",
-          "title": "Share of State Livestock Value (%)",
-          "axis": { "format": ".0%", "labelFontSize": 11, "tickCount": 5 }
+          "title": "Species Share of State Herd (%)",
+          "scale": { "domain": [0, 1] },
+          "axis": {
+            "format": ".0%",
+            "labelFontSize": 10.5,
+            "titleFontSize": 11,
+            "values": [0, 0.25, 0.5, 0.75, 1.0]
+          }
         },
         "color": {
           "field": "Livestock_Type",
@@ -68,73 +62,43 @@
           "legend": {
             "orient": "top",
             "columns": 5,
-            "symbolLimit": 5,
+            "offset": 18,
             "labelFontSize": 10.5,
-            "columnPadding": 6,
-            "offset": 8
+            "symbolSize": 65,
+            "columnPadding": 10
           }
         },
         "order": { "field": "Species_Order", "type": "quantitative" },
         "tooltip": [
-          { "field": "State", "type": "nominal", "title": "State" },
+          { "field": "State", "type": "nominal", "title": "State / Territory" },
           { "field": "Livestock_Type", "type": "nominal", "title": "Species" },
-          { "field": "Share_Pct", "type": "quantitative", "title": "Share of State (%)", "format": ".1f" },
-          { "field": "Value_M", "type": "quantitative", "title": "2024–25 Value ($M AUD)", "format": "$,.1f" }
+          { "field": "Share_Pct", "type": "quantitative", "title": "Share (%)", "format": ".1f" },
+          { "field": "Val_M", "type": "quantitative", "title": "Value ($M AUD)", "format": "$,.1f" }
         ]
       }
     },
     {
       "data": { "values": [{ "half": 0.5 }] },
-      "mark": {
-        "type": "rule",
-        "stroke": "#1E242B",
-        "strokeDash": [4, 4],
-        "strokeWidth": 1.3
-      },
-      "encoding": {
-        "x": { "field": "half", "type": "quantitative" }
-      }
+      "mark": { "type": "rule", "stroke": "#0F172A", "strokeDash": [4, 4], "strokeWidth": 1.3 },
+      "encoding": { "x": { "field": "half", "type": "quantitative" } }
     },
     {
-      "data": {
-        "values": [
-          { "x": 0.5, "State": "Northern Territory", "note": "50% Parity Line" }
-        ]
-      },
+      "data": { "values": [{ "x": 0.5, "note": "50% Majority" }] },
       "mark": {
         "type": "text",
         "align": "center",
-        "dy": -19,
-        "font": "DM Sans",
-        "fontSize": 10.5,
-        "fontStyle": "italic",
+        "y": -7,
+        "fontSize": 10,
         "fontWeight": "bold",
-        "fill": "#1E242B",
+        "fill": "#0F172A",
         "halo": "#FFFFFF",
-        "haloWidth": 3
+        "haloWidth": 2
       },
       "encoding": {
         "x": { "field": "x", "type": "quantitative" },
-        "y": {
-          "field": "State",
-          "type": "nominal",
-          "sort": [
-            "Northern Territory",
-            "Queensland",
-            "Tasmania",
-            "Western Australia",
-            "New South Wales",
-            "Australian Capital Territory",
-            "Victoria",
-            "South Australia"
-          ]
-        },
         "text": { "field": "note", "type": "nominal" }
       }
     }
   ],
-  "config": {
-    "font": "DM Sans",
-    "view": { "stroke": null }
-  }
+  "config": { "font": "DM Sans", "view": { "stroke": null } }
 }

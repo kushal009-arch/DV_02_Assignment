@@ -1,0 +1,225 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "autosize": "pad",
+  "padding": { "top": 12, "left": 10, "right": 90, "bottom": 8 },
+  "data": { "url": "data/australian_apparent_meat_consumption_per_person.csv" },
+  "transform": [
+    {
+      "calculate": "toNumber(slice(datum.Year, 0, 4))",
+      "as": "Year_Num"
+    },
+    {
+      "fold": ["Poultry", "Pig_Meat", "Beef_Veal", "Sheep_Meat"],
+      "as": ["Meat_Code", "Kg_Per_Person"]
+    },
+    {
+      "calculate": "datum.Meat_Code == 'Poultry' ? 'Poultry' : datum.Meat_Code == 'Pig_Meat' ? 'Pig Meat' : datum.Meat_Code == 'Beef_Veal' ? 'Beef & Veal' : 'Sheep Meat'",
+      "as": "Meat_Type"
+    }
+  ],
+  "vconcat": [
+    {
+      "width": 360,
+      "height": 215,
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "strokeWidth": 2.5,
+            "interpolate": "monotone",
+            "point": { "size": 35, "filled": true }
+          },
+          "encoding": {
+            "x": {
+              "field": "Year_Num",
+              "type": "quantitative",
+              "scale": { "domain": { "param": "time_brush" } },
+              "title": null,
+              "axis": {
+                "format": "d",
+                "labelFontSize": 10.5,
+                "values": [1990, 1995, 2000, 2005, 2010, 2015, 2020],
+                "grid": false
+              }
+            },
+            "y": {
+              "field": "Kg_Per_Person",
+              "type": "quantitative",
+              "title": "Consumption (kg / person / yr)",
+              "scale": { "domain": [0, 62] },
+              "axis": {
+                "tickCount": 7,
+                "grid": true,
+                "gridColor": "#F1F5F9",
+                "labelFontSize": 10.5,
+                "titleFontSize": 11,
+                "titlePadding": 10
+              }
+            },
+            "color": {
+              "field": "Meat_Type",
+              "type": "nominal",
+              "scale": {
+                "domain": ["Poultry", "Pig Meat", "Beef & Veal", "Sheep Meat"],
+                "range": ["#009E73", "#CC79A7", "#0072B2", "#E69F00"]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "Year", "type": "nominal", "title": "Financial Year" },
+              { "field": "Meat_Type", "type": "nominal", "title": "Species" },
+              { "field": "Kg_Per_Person", "type": "quantitative", "title": "Intake (kg)", "format": ".1f" }
+            ]
+          }
+        },
+        {
+          "transform": [
+            { "filter": "datum.Year_Num == 2024" }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "font": "DM Sans",
+            "fontSize": 11,
+            "fontWeight": "bold"
+          },
+          "encoding": {
+            "x": {
+              "field": "Year_Num",
+              "type": "quantitative",
+              "scale": { "domain": { "param": "time_brush" } }
+            },
+            "y": {
+              "field": "Kg_Per_Person",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "Meat_Type",
+              "type": "nominal"
+            },
+            "color": {
+              "field": "Meat_Type",
+              "type": "nominal"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              { "yr": 2001, "label": "2001–02: Poultry overtakes Beef", "y": 56, "align": "left", "dx": 6 },
+              { "yr": 2015, "label": "2015–16: Pig passes Beef", "y": 15, "align": "left", "dx": 6 }
+            ]
+          },
+          "layer": [
+            {
+              "mark": {
+                "type": "rule",
+                "stroke": "#64748B",
+                "strokeDash": [4, 4],
+                "strokeWidth": 1.2
+              },
+              "encoding": {
+                "x": {
+                  "field": "yr",
+                  "type": "quantitative",
+                  "scale": { "domain": { "param": "time_brush" } }
+                }
+              }
+            },
+            {
+              "mark": {
+                "type": "text",
+                "font": "DM Sans",
+                "fontSize": 10,
+                "fontStyle": "italic",
+                "fontWeight": "bold",
+                "fill": "#0F172A",
+                "halo": "#FFFFFF",
+                "haloWidth": 2
+              },
+              "encoding": {
+                "x": {
+                  "field": "yr",
+                  "type": "quantitative",
+                  "scale": { "domain": { "param": "time_brush" } }
+                },
+                "y": { "field": "y", "type": "quantitative" },
+                "text": { "field": "label", "type": "nominal" },
+                "align": { "field": "align", "type": "nominal" },
+                "dx": { "field": "dx", "type": "quantitative" }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "height": 45,
+      "layer": [
+        {
+          "mark": { "type": "area", "color": "#CBD5E1", "opacity": 0.65 },
+          "params": [
+            {
+              "name": "time_brush",
+              "select": {
+                "type": "interval",
+                "encodings": ["x"],
+                "mark": {
+                  "fill": "#334155",
+                  "fillOpacity": 0.25,
+                  "stroke": "#1E242B",
+                  "strokeWidth": 1.2
+                }
+              }
+            }
+          ],
+          "encoding": {
+            "x": {
+              "field": "Year_Num",
+              "type": "quantitative",
+              "scale": { "domain": [1988, 2024] },
+              "title": "Drag across timeline to zoom period (1988–2024)",
+              "axis": {
+                "format": "d",
+                "labelFontSize": 9.5,
+                "titleFontSize": 10,
+                "titlePadding": 6,
+                "values": [1990, 1995, 2000, 2005, 2010, 2015, 2020]
+              }
+            },
+            "y": {
+              "aggregate": "sum",
+              "field": "Kg_Per_Person",
+              "type": "quantitative",
+              "scale": { "domain": [0, 120] },
+              "axis": {
+                "title": "Total",
+                "values": [0, 105],
+                "titleFontSize": 9,
+                "labelFontSize": 8.5,
+                "grid": false
+              }
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "rule",
+            "stroke": "#94A3B8",
+            "strokeDash": [3, 3],
+            "strokeWidth": 1
+          },
+          "encoding": {
+            "y": { "datum": 105 }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "font": "DM Sans",
+    "view": { "stroke": null }
+  }
+}

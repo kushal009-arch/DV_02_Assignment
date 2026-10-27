@@ -1,0 +1,36 @@
+[
+  { "State": "Queensland", "State_Short": "QLD", "State_Total_B": 8.68, "National_Share_Pct": 32.2, "x0": 0.00, "x1": 8.68, "Species": "Cattle", "y0": 0.0, "y1": 85.1, "Share_Pct": 85.1, "Value_M": 7382.6 },
+  { "State": "Queensland", "State_Short": "QLD", "State_Total_B": 8.68, "National_Share_Pct": 32.2, "x0": 0.00, "x1": 8.68, "Species": "Sheep", "y0": 85.1, "y1": 85.3, "Share_Pct": 0.2, "Value_M": 14.8 },
+  { "State": "Queensland", "State_Short": "QLD", "State_Total_B": 8.68, "National_Share_Pct": 32.2, "x0": 0.00, "x1": 8.68, "Species": "Poultry", "y0": 85.3, "y1": 94.1, "Share_Pct": 8.8, "Value_M": 760.8 },
+  { "State": "Queensland", "State_Short": "QLD", "State_Total_B": 8.68, "National_Share_Pct": 32.2, "x0": 0.00, "x1": 8.68, "Species": "Pig", "y0": 94.1, "y1": 99.4, "Share_Pct": 5.4, "Value_M": 466.4 },
+  { "State": "Queensland", "State_Short": "QLD", "State_Total_B": 8.68, "National_Share_Pct": 32.2, "x0": 0.00, "x1": 8.68, "Species": "Other", "y0": 99.4, "y1": 100.0, "Share_Pct": 0.6, "Value_M": 52.7 },
+
+  { "State": "Victoria", "State_Short": "VIC", "State_Total_B": 7.63, "National_Share_Pct": 28.3, "x0": 8.68, "x1": 16.30, "Species": "Cattle", "y0": 0.0, "y1": 48.1, "Share_Pct": 48.1, "Value_M": 3664.4 },
+  { "State": "Victoria", "State_Short": "VIC", "State_Total_B": 7.63, "National_Share_Pct": 28.3, "x0": 8.68, "x1": 16.30, "Species": "Sheep", "y0": 48.1, "y1": 79.7, "Share_Pct": 31.6, "Value_M": 2411.4 },
+  { "State": "Victoria", "State_Short": "VIC", "State_Total_B": 7.63, "National_Share_Pct": 28.3, "x0": 8.68, "x1": 16.30, "Species": "Poultry", "y0": 79.7, "y1": 93.4, "Share_Pct": 13.7, "Value_M": 1045.8 },
+  { "State": "Victoria", "State_Short": "VIC", "State_Total_B": 7.63, "National_Share_Pct": 28.3, "x0": 8.68, "x1": 16.30, "Species": "Pig", "y0": 93.4, "y1": 99.0, "Share_Pct": 5.6, "Value_M": 429.5 },
+  { "State": "Victoria", "State_Short": "VIC", "State_Total_B": 7.63, "National_Share_Pct": 28.3, "x0": 8.68, "x1": 16.30, "Species": "Other", "y0": 99.0, "y1": 100.0, "Share_Pct": 1.0, "Value_M": 74.1 },
+
+  { "State": "New South Wales", "State_Short": "NSW", "State_Total_B": 6.60, "National_Share_Pct": 24.5, "x0": 16.30, "x1": 22.90, "Species": "Cattle", "y0": 0.0, "y1": 55.0, "Share_Pct": 55.0, "Value_M": 3629.9 },
+  { "State": "New South Wales", "State_Short": "NSW", "State_Total_B": 6.60, "National_Share_Pct": 24.5, "x0": 16.30, "x1": 22.90, "Species": "Sheep", "y0": 55.0, "y1": 77.5, "Share_Pct": 22.5, "Value_M": 1484.0 },
+  { "State": "New South Wales", "State_Short": "NSW", "State_Total_B": 6.60, "National_Share_Pct": 24.5, "x0": 16.30, "x1": 22.90, "Species": "Poultry", "y0": 77.5, "y1": 95.0, "Share_Pct": 17.5, "Value_M": 1154.9 },
+  { "State": "New South Wales", "State_Short": "NSW", "State_Total_B": 6.60, "National_Share_Pct": 24.5, "x0": 16.30, "x1": 22.90, "Species": "Pig", "y0": 95.0, "y1": 99.2, "Share_Pct": 4.2, "Value_M": 274.7 },
+  { "State": "New South Wales", "State_Short": "NSW", "State_Total_B": 6.60, "National_Share_Pct": 24.5, "x0": 16.30, "x1": 22.90, "Species": "Other", "y0": 99.2, "y1": 100.0, "Share_Pct": 0.8, "Value_M": 53.3 },
+
+  { "State": "South Australia", "State_Short": "SA", "State_Total_B": 1.60, "National_Share_Pct": 5.9, "x0": 22.90, "x1": 24.50, "Species": "Cattle", "y0": 0.0, "y1": 42.4, "Share_Pct": 42.4, "Value_M": 675.9 },
+  { "State": "South Australia", "State_Short": "SA", "State_Total_B": 1.60, "National_Share_Pct": 5.9, "x0": 22.90, "x1": 24.50, "Species": "Sheep", "y0": 42.4, "y1": 75.8, "Share_Pct": 33.4, "Value_M": 533.1 },
+  { "State": "South Australia", "State_Short": "SA", "State_Total_B": 1.60, "National_Share_Pct": 5.9, "x0": 22.90, "x1": 24.50, "Species": "Pig", "y0": 75.8, "y1": 100.0, "Share_Pct": 24.2, "Value_M": 386.8 },
+
+  { "State": "Western Australia", "State_Short": "WA", "State_Total_B": 1.52, "National_Share_Pct": 5.6, "x0": 24.50, "x1": 26.02, "Species": "Cattle", "y0": 0.0, "y1": 61.1, "Share_Pct": 61.1, "Value_M": 931.0 },
+  { "State": "Western Australia", "State_Short": "WA", "State_Total_B": 1.52, "National_Share_Pct": 5.6, "x0": 24.50, "x1": 26.02, "Species": "Sheep", "y0": 61.1, "y1": 100.0, "Share_Pct": 38.9, "Value_M": 593.1 },
+
+  { "State": "Tasmania", "State_Short": "TAS", "State_Total_B": 0.50, "National_Share_Pct": 1.9, "x0": 26.02, "x1": 26.52, "Species": "Cattle", "y0": 0.0, "y1": 82.5, "Share_Pct": 82.5, "Value_M": 411.6 },
+  { "State": "Tasmania", "State_Short": "TAS", "State_Total_B": 0.50, "National_Share_Pct": 1.9, "x0": 26.02, "x1": 26.52, "Species": "Sheep", "y0": 82.5, "y1": 100.0, "Share_Pct": 17.5, "Value_M": 87.6 },
+
+  { "State": "Northern Territory", "State_Short": "NT", "State_Total_B": 0.46, "National_Share_Pct": 1.7, "x0": 26.52, "x1": 26.97, "Species": "Cattle", "y0": 0.0, "y1": 90.0, "Share_Pct": 90.0, "Value_M": 410.6 },
+  { "State": "Northern Territory", "State_Short": "NT", "State_Total_B": 0.46, "National_Share_Pct": 1.7, "x0": 26.52, "x1": 26.97, "Species": "Other", "y0": 90.0, "y1": 100.0, "Share_Pct": 10.0, "Value_M": 45.5 },
+
+  { "State": "ACT", "State_Short": "ACT", "State_Total_B": 0.01, "National_Share_Pct": 0.03, "x0": 26.97, "x1": 26.98, "Species": "Cattle", "y0": 0.0, "y1": 49.3, "Share_Pct": 49.3, "Value_M": 3.5 },
+  { "State": "ACT", "State_Short": "ACT", "State_Total_B": 0.01, "National_Share_Pct": 0.03, "x0": 26.97, "x1": 26.98, "Species": "Sheep", "y0": 49.3, "y1": 76.1, "Share_Pct": 26.7, "Value_M": 1.9 },
+  { "State": "ACT", "State_Short": "ACT", "State_Total_B": 0.01, "National_Share_Pct": 0.03, "x0": 26.97, "x1": 26.98, "Species": "Poultry", "y0": 76.1, "y1": 100.0, "Share_Pct": 23.9, "Value_M": 1.7 }
+]

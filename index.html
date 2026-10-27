@@ -43,12 +43,12 @@
         <div class="kpi-card">
           <span class="kpi-label">Top Producing State</span>
           <span class="kpi-value">Queensland</span>
-          <span class="kpi-sub">$8.68B output (85.1% <span class="badge badge-cattle">Cattle</span>)</span>
+          <span class="kpi-sub">$8.68B output (85.1% <span class="badge badge-cattle">Cattle / Beef</span>)</span>
         </div>
         <div class="kpi-card">
           <span class="kpi-label">Fastest 5-Yr Growth</span>
           <span class="kpi-value">South Australia</span>
-          <span class="kpi-sub">+51.1% led by <span class="badge badge-sheep">Sheep</span> &amp; <span class="badge badge-pig">Pig</span></span>
+          <span class="kpi-sub">+51.1% led by <span class="badge badge-sheep">Sheep / Lamb</span> &amp; <span class="badge badge-pig">Pig / Pork</span></span>
         </div>
         <div class="kpi-card">
           <span class="kpi-label">No. 1 Meat Consumed</span>
@@ -75,34 +75,37 @@
         <div class="vis-card">
           <div class="card-header">
             <h3>1. Northern Cattle Giants: State Reliance on Beef (%)</h3>
-            <p class="card-caption">Proportion of state livestock revenue from <span class="badge badge-cattle">Cattle</span> (2020–21 to 2024–25). Use the dropdown menu below to explore changes over time.</p>
+            <p class="card-caption">Proportion of state livestock revenue from <span class="badge badge-cattle">Cattle / Beef</span> (2020–21 to 2024–25). Use the dropdown menu below to explore changes over time.</p>
           </div>
           <div id="map1" class="vis-container"></div>
           <p class="narrative-text">
-            Mapping relative share rather than raw dollars prevents large states from distorting regional dependence. Northern pastoral zones—<strong>Northern Territory (90.0%)</strong> and <strong>Queensland (85.1%)</strong>—rely overwhelmingly on <span class="badge badge-cattle">Cattle</span> grazing.
+            Mapping relative share rather than raw dollars prevents large states from distorting regional dependence. Northern pastoral zones—<strong>Northern Territory (90.0%)</strong> and <strong>Queensland (85.1%)</strong>—rely overwhelmingly on <span class="badge badge-cattle">Cattle / Beef</span> grazing.
           </p>
         </div>
 
         <div class="vis-card">
           <div class="card-header">
             <h3>2. Following the Money: State Output by Species ($M)</h3>
-            <p class="card-caption">Circle size shows total disposal output ($ AUD Millions) by state, with species and financial year filters.</p>
+            <p class="card-caption">Circle size shows total livestock output ($M AUD) by state on "All", with species-specific breakdown and financial year filters.</p>
           </div>
           <div id="map2" class="vis-container"></div>
           <p class="narrative-text">
-            While northern states dominate pastoral land area, economic output concentrates along the eastern seaboard. <strong>Queensland ($8.68B)</strong>, <strong>Victoria ($7.63B)</strong>, and <strong>New South Wales ($6.60B)</strong> generate <strong>84.9%</strong> of national revenue.
+            While northern states dominate pastoral land area, economic output concentrates along the eastern seaboard. In 2024–25, <strong>Queensland ($8.68B)</strong>, <strong>Victoria ($7.63B)</strong>, and <strong>New South Wales ($6.60B)</strong> generated <strong>84.9%</strong> of national revenue.
           </p>
         </div>
       </div>
 
       <!-- Row 1.2: Map 3 (Diverging Growth Map) + Narrative Insight Card -->
-      <div class="grid-2colMapText">
+      <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
             <h3>3. Five-Year Boom vs. Bust: Regional Growth (2020–25)</h3>
             <p class="card-caption">Percentage change in total livestock disposal value (2020–21 to 2024–25) centered at zero growth (0%).</p>
           </div>
           <div id="map3" class="vis-container"></div>
+          <p class="narrative-text">
+            Diverging regional fortunes: <strong>South Australia (+51.1%)</strong> and <strong>Victoria (+47.5%)</strong> surged on multi-species resilience, while the <strong>Northern Territory (-16.3%)</strong> contracted due to single-species cattle export exposure.
+          </p>
         </div>
 
         <div class="vis-card narrative-panel">
@@ -115,11 +118,16 @@
               Between 2020–21 and 2024–25, national livestock disposals expanded by <strong>+37.1%</strong>, adding over <strong>$7.30 Billion</strong> in annual agricultural value.
             </p>
             <p class="narrative-text">
-              <strong>South Australia (+51.1%)</strong> and <strong>Victoria (+47.5%)</strong> led national growth, powered by strong <span class="badge badge-sheep">Sheep</span> restocking alongside intensive <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pig</span> farming.
+              <strong>South Australia (+51.1%)</strong> and <strong>Victoria (+47.5%)</strong> led national growth, powered by strong <span class="badge badge-sheep">Sheep / Lamb</span> restocking alongside intensive <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pig / Pork</span> farming.
             </p>
             <p class="narrative-text">
-              Conversely, the <strong>Northern Territory (-16.3%)</strong> experienced a contraction from <strong>$545M to $456M</strong>, reflecting live-export volatility and single-commodity exposure to <span class="badge badge-cattle">Cattle</span> cycles.
+              Conversely, the <strong>Northern Territory (-16.3%)</strong> experienced a contraction from <strong>$545M to $456M</strong>, reflecting live-export volatility and single-commodity exposure to <span class="badge badge-cattle">Cattle / Beef</span> cycles.
             </p>
+            <div class="mini-stat-strip" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0 6px 0; background: #FAF8F5; padding: 8px 12px; border-radius: 6px; border: 1px solid #ECE7DF;">
+              <div style="text-align: center;"><span style="font-size: 0.72rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em;">SA (Fastest)</span><br><strong style="font-size: 1.15rem; color: #8A5B00;">+51.1%</strong></div>
+              <div style="text-align: center;"><span style="font-size: 0.72rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em;">VIC (2nd)</span><br><strong style="font-size: 1.15rem; color: #8A5B00;">+47.5%</strong></div>
+              <div style="text-align: center;"><span style="font-size: 0.72rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em;">NT (Contracted)</span><br><strong style="font-size: 1.15rem; color: #005A8D;">-16.3%</strong></div>
+            </div>
             <div class="callout-strip">
               <strong>Key Takeaway:</strong> Diversified southern farming systems buffered price shocks better than single-species northern pastoral regions.
             </div>
@@ -145,37 +153,37 @@
       <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
-            <h3>4. How Every State Balances Its Livestock Herd (2024–25)</h3>
-            <p class="card-caption">Proportion of livestock revenue across all 4 species, highlighting the 50% single-species dominance line.</p>
+            <h3>4. State Portfolios: How Each State Balances Its Herd</h3>
+            <p class="card-caption">100% normalized stacked bar chart displaying each state's livestock portfolio composition (%) relative to the 50% majority dominance line.</p>
           </div>
           <div id="chart4" class="vis-container"></div>
           <p class="narrative-text">
-            Temperate southern states exhibit balanced portfolios: <strong>Victoria</strong> pairs <span class="badge badge-cattle">Cattle</span> (48.1%) with Australia's largest <span class="badge badge-sheep">Sheep</span> sector (31.6%), while <strong>South Australia</strong> dedicates <strong>24.2%</strong> of its industry to <span class="badge badge-pig">Pig</span> disposals.
+            Temperate southern states exhibit balanced portfolios: <strong>Victoria</strong> pairs <span class="badge badge-cattle">Cattle / Beef</span> (48.1%) with Australia's largest <span class="badge badge-sheep">Sheep / Lamb</span> sector (31.6%), while <strong>South Australia</strong> dedicates <strong>24.2%</strong> of its industry to <span class="badge badge-pig">Pig / Pork</span> disposals.
           </p>
         </div>
 
         <div class="vis-card">
           <div class="card-header">
-            <h3>5. State-by-State Rivalry: Who Leads Each Livestock Sector?</h3>
-            <p class="card-caption">Yearly rank trajectories (1st to 8th) by livestock species across five financial years (2020–21 to 2024–25).</p>
+            <h3>5. State-by-State Rivalry: Who Leads Each Sector?</h3>
+            <p class="card-caption">Yearly rank trajectories across five financial years (2020–21 to 2024–25). Select species below to view national rankings (up to 8th; states with confidential or zero ABS output are omitted).</p>
           </div>
           <div id="chart5" class="vis-container"></div>
           <p class="narrative-text">
-            In <span class="badge badge-poultry">Poultry</span> disposals, <strong>Victoria overtook NSW in 2022–23 ($1,057M vs. $832M)</strong> before NSW reclaimed Rank 1 in 2024–25 ($1,155M vs. $1,046M). Queensland consistently ranks third ($761M).
+            While Queensland holds an unchallenged Rank 1 in <span class="badge badge-cattle">Cattle / Beef</span> (with Victoria overtaking NSW for 2nd in 2024–25) and Victoria leads <span class="badge badge-sheep">Sheep / Lamb</span> ahead of a WA–SA battle for 3rd, <span class="badge badge-poultry">Poultry</span> sees the fiercest lead changes: Victoria overtook NSW in 2022–23 ($1,057M vs. $832M) before NSW reclaimed Rank 1 in 2024–25 ($1,155M vs. $1,046M).
           </p>
         </div>
       </div>
 
-      <!-- Parallel Coordinates Plot + Narrative Row -->
+      <!-- Faceted Cleveland Dot Plot + Narrative Row -->
       <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
             <h3>6. Two Farming Worlds: North vs. South Profiles</h3>
-            <p class="card-caption">Parallel coordinates comparing all 8 states across 4 species shares (%) and 5-year revenue growth (%). Hover over any line to highlight a state.</p>
+            <p class="card-caption">Faceted Cleveland dot plot comparing species share (%) across Northern Pastoral and Southern Mixed jurisdictions with row alignment guides and a 50% dominance line.</p>
           </div>
           <div id="chart10" class="vis-container"></div>
           <p class="narrative-text">
-            Notice the distinct split: Northern pastoral zones (NT, QLD) peak sharply on <span class="badge badge-cattle">Cattle</span> and flatline across other species, whereas Southern states (VIC, SA, NSW) exhibit criss-crossing diversified profiles with superior 5-year growth rates.
+            Notice the stark geographical contrast: Northern pastoral zones (NT, QLD, WA) peak sharply on <span class="badge badge-cattle">Cattle / Beef</span> (61%–90%) with other species near 0%. In contrast, Southern mainland jurisdictions (VIC, SA, NSW, ACT) display balanced multi-species portfolios where no single species exceeds 55%, while island grazing in TAS mirrors northern beef specialization at 82.5%.
           </p>
         </div>
 
@@ -189,10 +197,10 @@
               Australia's livestock geography reflects two distinct agricultural worlds governed by rainfall and pasture quality:
             </p>
             <p class="narrative-text">
-              <strong>The Northern Pastoral Zone:</strong> In the tropical rangelands of the NT and northern Queensland, extensive <span class="badge badge-cattle">Cattle</span> grazing dominates due to monsoonal summer rains, vast station sizes, and terrain unsuitable for <span class="badge badge-sheep">Sheep</span> or intensive farming.
+              <strong>The Northern Pastoral Zone:</strong> In the tropical rangelands of the NT and northern Queensland, extensive <span class="badge badge-cattle">Cattle / Beef</span> grazing dominates due to monsoonal summer rains, vast station sizes, and terrain unsuitable for <span class="badge badge-sheep">Sheep / Lamb</span> or intensive farming.
             </p>
             <p class="narrative-text">
-              <strong>The Southern Mixed Zone:</strong> Reliable winter rains in Victoria, New South Wales, and South Australia support fertile pastures, grain cropping, and intensive <span class="badge badge-poultry">Poultry</span> sheds and <span class="badge badge-pig">Pig</span> farms near major metropolitan consumer markets.
+              <strong>The Southern Mixed Zone:</strong> Reliable winter rains in Victoria, New South Wales, and South Australia support fertile pastures, grain cropping, and intensive <span class="badge badge-poultry">Poultry</span> sheds and <span class="badge badge-pig">Pig / Pork</span> farms near major metropolitan consumer markets.
             </p>
             <div class="callout-strip">
               <strong>Takeaway:</strong> Climate dictates pastoral grazing systems; population density drives intensive livestock sheds.
@@ -216,27 +224,27 @@
         </p>
       </div>
 
-      <!-- Row 3.1: Centered Streamgraph + Timeline Crossover Chart -->
+      <!-- Row 3.1: Zero-Aligned Stacked Area Chart + Timeline Crossover Chart -->
       <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
-            <h3>7. The Changing Plate: 37 Years of Meat Consumption</h3>
-            <p class="card-caption">Organic streamgraph capturing 37 years of shifting dietary shares (1988–89 to 2024–25) as poultry expanded outward.</p>
+            <h3>7. Steady Total Intake: The 37-Year Shift in Diet</h3>
+            <p class="card-caption">Zero-aligned stacked area chart demonstrating stable ~105 kg per-capita intake while poultry expanded +126% from the common baseline, compressing traditional red meats.</p>
           </div>
           <div id="chart6" class="vis-container"></div>
           <p class="narrative-text">
-            While total annual meat intake remained remarkably steady near <strong>104–106 kg/person</strong>, the silhouette reveals a radical internal flip: the teal <span class="badge badge-poultry">Poultry</span> ribbon widened threefold while the blue <span class="badge badge-cattle">Beef</span> and amber <span class="badge badge-sheep">Sheep</span> streams narrowed dramatically.
+            While total annual meat intake stayed remarkably constant across four decades (<strong>104–106 kg/person</strong>), anchoring <span class="badge badge-poultry">Poultry</span> to the common baseline reveals the true magnitude of Australia's plate flip: chicken expanded from 23.9 kg to 53.9 kg (+126%), while traditional <span class="badge badge-cattle">Cattle / Beef</span> and <span class="badge badge-sheep">Sheep / Lamb</span> were squeezed to half their former share.
           </p>
         </div>
 
         <div class="vis-card">
           <div class="card-header">
-            <h3>8. Two Turning Points: Chicken (2001) &amp; Pork (2015) Pass Beef</h3>
-            <p class="card-caption">Annual meat consumption (kg/person/year) with historical crossover points. Drag along the bottom bar to zoom into specific decades.</p>
+            <h3>8. Two Turning Points: Poultry &amp; Pork Overtake Beef</h3>
+            <p class="card-caption">Exact historical crossover milestones in annual per-capita intake. Drag the interactive brush below to zoom into individual decades.</p>
           </div>
           <div id="chart7" class="vis-container"></div>
           <p class="narrative-text">
-            Two defining moments reshaped the Australian dinner table: <span class="badge badge-poultry">Poultry</span> permanently overtook <span class="badge badge-cattle">Beef</span> in <strong>2001–02 (33.2 kg vs. 32.7 kg)</strong>, and <span class="badge badge-pig">Pig Meat</span> surpassed Beef in <strong>2015–16 (27.6 kg vs. 24.6 kg)</strong>.
+            Interactive timeline analysis pinpoints two historic crossover years: <span class="badge badge-poultry">Poultry</span> permanently overtook <span class="badge badge-cattle">Cattle / Beef</span> in <strong>2001–02 (33.2 kg vs. 32.7 kg)</strong>, and <span class="badge badge-pig">Pig / Pork</span> surpassed Cattle / Beef in <strong>2015–16 (27.6 kg vs. 24.6 kg)</strong>.
           </p>
         </div>
       </div>
@@ -245,12 +253,12 @@
       <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
-            <h3>9. Four Decades of Shifting Appetites (1988–2025)</h3>
-            <p class="card-caption">Year-by-year meat consumption heatmap (kg/person) tracking the gradual fading of sheepmeat and the steady darkening of poultry.</p>
+            <h3>9. Four Decades of Shifting Intensity: The Decline of Lamb</h3>
+            <p class="card-caption">Year-by-year consumption heat matrix (kg/person) tracking decadal persistence and the collapse of sheep meat intake.</p>
           </div>
           <div id="chart8" class="vis-container"></div>
           <p class="narrative-text">
-            The heatmap documents the gradual fading of <span class="badge badge-sheep">Sheep Meat</span> from <strong>23.7 kg (1989–90)</strong> down to a faint <strong>5.3 kg (2024–25)</strong>, while <span class="badge badge-poultry">Poultry</span> darkens steadily after crossing the 44 kg mark in 2010–11.
+            The heat matrix tracks per-capita intensity across four decades using a high-contrast sequential teal-blue scale: <span class="badge badge-poultry">Poultry</span> systematically deepens into an intense saturated band of <strong>53.9 kg (2024–25)</strong>, while traditional <span class="badge badge-sheep">Sheep / Lamb</span> fades from <strong>23.7 kg (1989–90)</strong> down into a faint pale tint of just <strong>5.3 kg</strong>.
           </p>
         </div>
 
@@ -264,13 +272,13 @@
               Three major economic and retail forces drove the <strong>+125.8%</strong> per-capita rise in <span class="badge badge-poultry">Poultry</span> over four decades:
             </p>
             <p class="narrative-text">
-              <strong>1. Feed-Conversion Economics:</strong> Broiler chickens require just <strong>1.6 kg of feed</strong> to produce 1 kg of meat, compared to <strong>6–8 kg</strong> for <span class="badge badge-cattle">Beef</span> cattle. This superior feed efficiency insulated poultry from grain price shocks.
+              <strong>1. Feed-Conversion Economics:</strong> Broiler chickens require just <strong>1.6 kg of feed</strong> to produce 1 kg of meat, compared to <strong>6–8 kg</strong> for <span class="badge badge-cattle">Cattle / Beef</span> cattle. This superior feed efficiency insulated poultry from grain price shocks.
             </p>
             <p class="narrative-text">
               <strong>2. Retail Convenience &amp; Processing:</strong> Supermarket value-added fresh cuts, de-boned fillets, and pre-marinated portions aligned perfectly with busy modern households seeking quick weeknight meals.
             </p>
             <p class="narrative-text">
-              <strong>3. Retail Price Gap:</strong> Rising global export demand pulled domestic retail prices for <span class="badge badge-cattle">Beef</span> and <span class="badge badge-sheep">Sheep Meat</span> upward, making <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pig Meat</span> the essential affordable protein choices.
+              <strong>3. Retail Price Gap:</strong> Rising global export demand pulled domestic retail prices for <span class="badge badge-cattle">Cattle / Beef</span> and <span class="badge badge-sheep">Sheep / Lamb</span> upward, making <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pig / Pork</span> the essential affordable protein choices.
             </p>
             <div class="callout-strip">
               <strong>Dietary Synthesis:</strong> Australians did not abandon meat; they substituted costlier red meat with versatile, affordable white meat to stretch the family food budget.
@@ -297,23 +305,23 @@
       <div class="grid-2col">
         <div class="vis-card">
           <div class="card-header">
-            <h3>10. Year-to-Year Consistency vs. Rapid Growth (1988–2025)</h3>
+            <h3>10. Consumption Volatility: Spread &amp; Distribution</h3>
             <p class="card-caption">Median, middle 50% range (box), and all 37 individual yearly points (1988–2025) showing consumption volatility by meat type.</p>
           </div>
           <div id="chart9" class="vis-container"></div>
           <p class="narrative-text">
-            <span class="badge badge-poultry">Poultry</span> exhibits the widest historical spread (spanning <strong>+31.5 kg</strong> over four decades), while <span class="badge badge-pig">Pig Meat</span> maintains the tightest stability (clustered reliably between 18 kg and 28 kg).
+            <span class="badge badge-poultry">Poultry</span> exhibits the widest historical spread (spanning <strong>+31.5 kg</strong> over four decades), while <span class="badge badge-pig">Pig / Pork</span> maintains the tightest stability (clustered reliably between 18 kg and 29 kg).
           </p>
         </div>
 
         <div class="vis-card">
           <div class="card-header">
-            <h3>11. The Export Paradox: Farm Dollar Share vs. Dinner Plate Share</h3>
+            <h3>11. Diverging Realities: Farm Dollars vs. Dinner Plates</h3>
             <p class="card-caption">Side-by-side comparison of 2024–25 farm revenue share (%) on the left against domestic dietary volume share (%) on the right.</p>
           </div>
           <div id="chart11" class="vis-container"></div>
           <p class="narrative-text">
-            <span class="badge badge-cattle">Cattle</span> captures <strong>63.4% ($17.11B)</strong> of farm-gate value but represents only <strong>18.8%</strong> of domestic meals. Conversely, <span class="badge badge-poultry">Poultry</span> generates just <strong>11.0% ($2.96B)</strong> of farm disposal revenue yet feeds <strong>50.6%</strong> of Australian meat demand.
+            <span class="badge badge-cattle">Cattle / Beef</span> captures <strong>63.4% ($17.11B)</strong> of farm-gate value but represents only <strong>18.8%</strong> of domestic meals. Conversely, <span class="badge badge-poultry">Poultry</span> generates just <strong>11.0% ($2.96B)</strong> of farm disposal revenue yet feeds <strong>50.6%</strong> of Australian meat demand.
           </p>
         </div>
       </div>
@@ -329,36 +337,45 @@
         </div>
 
         <div class="synthesis-2col-layout">
-          <!-- Left Column: Narrative Explanation -->
-          <div class="synthesis-narrative-col">
-            <p class="narrative-text">
-              How can an industry thrive when its primary agricultural product is disappearing from domestic dining tables? The answer lies in <strong>high-value international export markets</strong>.
-            </p>
-            <p class="narrative-text">
-              Australia exports over <strong>70% of its <span class="badge badge-cattle">Beef</span></strong> and over <strong>90% of its <span class="badge badge-sheep">Sheepmeat</span></strong> to premium buyers across Asia and North America. High export prices completely decouple farm revenue from domestic Australian dietary shifts.
-            </p>
-            <p class="narrative-text">
-              Meanwhile, Australia's <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pork</span> sectors are almost 100% domestic. Shielded by strict biosecurity import barriers, they provide affordable everyday meals for Australian families.
-            </p>
+          <!-- Left Column: Narrative Explanation Panel -->
+          <div class="synthesis-panel">
+            <h4>The Global Decoupling Dynamic</h4>
+            <div class="synthesis-narrative-stack">
+              <p>
+                How can an industry thrive when its primary agricultural product is disappearing from domestic dining tables? The answer lies in <strong>high-value international export markets</strong>.
+              </p>
+              <p>
+                Australia exports over <strong>70% of its <span class="badge badge-cattle">Cattle / Beef</span></strong> and over <strong>90% of its <span class="badge badge-sheep">Sheep / Lamb</span></strong> to premium buyers across Asia and North America. High global prices completely decouple farm revenue from domestic Australian dietary shifts.
+              </p>
+              <p>
+                Meanwhile, Australia's <span class="badge badge-poultry">Poultry</span> and <span class="badge badge-pig">Pig / Pork</span> sectors are almost 100% domestic. Shielded by strict biosecurity import barriers, local intensive producers provide affordable everyday meals for Australian families.
+              </p>
+            </div>
           </div>
 
-          <!-- Right Column: Key Export Statistics & Final Conclusion Box -->
-          <div class="synthesis-stats-col">
-            <div class="synthesis-stat-box">
-              <h4>Dual Market Structure (2024–25)</h4>
+          <!-- Right Column: Key Export Statistics Panel -->
+          <div class="synthesis-panel">
+            <h4>Dual Market Structure (2024–25)</h4>
+            <div class="synthesis-stats-stack">
               <div class="stat-row">
-                <span class="stat-pill"><span class="badge badge-cattle">Beef</span> &amp; <span class="badge badge-sheep">Sheep</span></span>
-                <span class="stat-desc"><strong>$22.8B farm value (84.5%)</strong> • Over 70% exported overseas</span>
+                <span class="stat-pill"><span class="badge badge-cattle">Cattle / Beef</span> &amp; <span class="badge badge-sheep">Sheep / Lamb</span></span>
+                <span class="stat-desc"><strong>$22.8B farm value (84.5%)</strong> • Over 70% of output exported overseas at premium global prices</span>
               </div>
               <div class="stat-row">
-                <span class="stat-pill"><span class="badge badge-poultry">Poultry</span> &amp; <span class="badge badge-pig">Pork</span></span>
-                <span class="stat-desc"><strong>75.0% of domestic meals</strong> • ~100% consumed locally</span>
+                <span class="stat-pill"><span class="badge badge-poultry">Poultry</span> &amp; <span class="badge badge-pig">Pig / Pork</span></span>
+                <span class="stat-desc"><strong>75.0% of domestic meals</strong> • ~100% consumed locally, shielded by strict biosecurity import barriers</span>
               </div>
-              <div class="callout-strip synthesis-callout">
-                <strong>Final Conclusion:</strong> Red meat graziers farm for the world, generating export revenue, while efficient local chicken and pork producers feed the nation.
+              <div class="commercial-reality-box">
+                <span class="reality-tag">Commercial Reality</span>
+                <p class="reality-desc">Farm revenue follows global currencies &amp; trade deals; domestic dinner plates follow feed efficiency &amp; supermarket convenience.</p>
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Full-Width Bottom Anchor Banner -->
+        <div class="callout-strip synthesis-full-callout">
+          <strong>Final Conclusion:</strong> Red meat graziers farm for the world, generating $22.8 Billion in international export revenue, while efficient local chicken and pork producers feed the Australian nation.
         </div>
       </div>
     </section>
@@ -377,8 +394,9 @@
           3. Spatial Boundaries: Australian States &amp; Territories GeoJSON (Geoscience Australia / ABS ASGS).</p>
         </div>
         <div>
-          <h4>Design &amp; Accessibility</h4>
-          <p>Enforces Okabe-Ito colour-blind safe palette, semantic colour locking (One Colour = One Meaning), Fraunces serif &amp; DM Sans typography, and equal-height CSS Grid sight-line alignment.</p>
+          <h4>Design &amp; AI Acknowledgement</h4>
+          <p>Enforces Okabe-Ito colour-blind safe palette, semantic colour locking (One Colour = One Meaning), Fraunces serif &amp; DM Sans typography, and equal-height CSS Grid sight-line alignment.<br><br>
+          <strong>AI Acknowledgement:</strong> Generative AI assistance was utilized for code debugging, CSS layout refinement, and editorial clarity in accordance with Monash University assessment guidelines.</p>
         </div>
       </div>
     </footer>
@@ -388,17 +406,18 @@
   <!-- VEGA-EMBED INITIALIZATION (11 VISUALISATIONS) -->
   <script>
     const embedOpts = { actions: false, renderer: "svg" };
-    vegaEmbed("#map1", "js/map1_choropleth_cattle_share.json", embedOpts).catch(console.error);
-    vegaEmbed("#map2", "js/map2_prop_symbol_output.json", embedOpts).catch(console.error);
-    vegaEmbed("#map3", "js/map3_diverging_growth.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart4", "js/chart4_marimekko_specialization.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart5", "js/chart5_bump_rankings.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart6", "js/chart6_streamgraph_consumption.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart7", "js/chart7_crossover_brush.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart8", "js/chart8_heatmap_decades.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart9", "js/chart9_raincloud_distributions.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart10", "js/chart10_parallel_coordinates.json", embedOpts).catch(console.error);
-    vegaEmbed("#chart11", "js/chart11_butterfly_export_paradox.json", embedOpts).catch(console.error);
+    const cb = "?v=" + Date.now();
+    vegaEmbed("#map1", "js/map1_choropleth_cattle_share.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#map2", "js/map2_prop_symbol_output.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#map3", "js/map3_diverging_growth.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart4", "js/chart4_marimekko_specialization.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart5", "js/chart5_bump_rankings.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart6", "js/chart6_stacked_area_consumption.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart7", "js/chart8_turning_points_clean.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart8", "js/chart9_heatmap_final.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart9", "js/chart9_raincloud_distributions.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart10", "js/chart10_parallel_coordinates.json" + cb, embedOpts).catch(console.error);
+    vegaEmbed("#chart11", "js/chart11_butterfly_export_paradox.json" + cb, embedOpts).catch(console.error);
   </script>
 </body>
 </html>

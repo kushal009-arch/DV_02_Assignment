@@ -1,167 +1,192 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 370,
-  "height": 290,
-  "autosize": { "type": "pad", "contains": "padding" },
-  "padding": { "top": 10, "left": 10, "right": 65, "bottom": 10 },
+  "autosize": "pad",
+  "padding": { "top": 10, "left": 10, "right": 40, "bottom": 10 },
   "data": {
-    "values": [
-      { "State": "Northern Territory", "State_Short": "NT", "Region": "Northern Pastoral", "Cattle_Share_Pct": 90.0, "Sheep_Share_Pct": 0.0, "Poultry_Share_Pct": 0.0, "Pig_Share_Pct": 0.0, "Five_Yr_Growth_Pct": -16.3 },
-      { "State": "Queensland", "State_Short": "QLD", "Region": "Northern Pastoral", "Cattle_Share_Pct": 85.1, "Sheep_Share_Pct": 0.2, "Poultry_Share_Pct": 8.8, "Pig_Share_Pct": 5.4, "Five_Yr_Growth_Pct": 36.0 },
-      { "State": "Western Australia", "State_Short": "WA", "Region": "Northern Pastoral", "Cattle_Share_Pct": 61.1, "Sheep_Share_Pct": 38.9, "Poultry_Share_Pct": 0.0, "Pig_Share_Pct": 0.0, "Five_Yr_Growth_Pct": 8.5 },
-      { "State": "Tasmania", "State_Short": "TAS", "Region": "Southern Mixed", "Cattle_Share_Pct": 82.5, "Sheep_Share_Pct": 17.5, "Poultry_Share_Pct": 0.0, "Pig_Share_Pct": 0.0, "Five_Yr_Growth_Pct": 17.5 },
-      { "State": "New South Wales", "State_Short": "NSW", "Region": "Southern Mixed", "Cattle_Share_Pct": 55.0, "Sheep_Share_Pct": 22.5, "Poultry_Share_Pct": 17.5, "Pig_Share_Pct": 4.2, "Five_Yr_Growth_Pct": 40.4 },
-      { "State": "Victoria", "State_Short": "VIC", "Region": "Southern Mixed", "Cattle_Share_Pct": 48.1, "Sheep_Share_Pct": 31.6, "Poultry_Share_Pct": 13.7, "Pig_Share_Pct": 5.6, "Five_Yr_Growth_Pct": 47.5 },
-      { "State": "South Australia", "State_Short": "SA", "Region": "Southern Mixed", "Cattle_Share_Pct": 42.4, "Sheep_Share_Pct": 33.4, "Poultry_Share_Pct": 0.0, "Pig_Share_Pct": 24.2, "Five_Yr_Growth_Pct": 51.1 },
-      { "State": "Australian Capital Territory", "State_Short": "ACT", "Region": "Southern Mixed", "Cattle_Share_Pct": 49.3, "Sheep_Share_Pct": 26.7, "Poultry_Share_Pct": 24.0, "Pig_Share_Pct": 0.0, "Five_Yr_Growth_Pct": 40.5 }
-    ]
+    "url": "data/state_profiles_2024_25.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "Cattle_Share_Pct": "number",
+        "Sheep_Share_Pct": "number",
+        "Poultry_Share_Pct": "number",
+        "Pig_Share_Pct": "number"
+      }
+    }
   },
   "transform": [
     {
-      "fold": [
-        "Cattle_Share_Pct",
-        "Sheep_Share_Pct",
-        "Poultry_Share_Pct",
-        "Pig_Share_Pct",
-        "Five_Yr_Growth_Pct"
-      ],
-      "as": ["Metric_Key", "Metric_Value"]
+      "fold": ["Cattle_Share_Pct", "Sheep_Share_Pct", "Poultry_Share_Pct", "Pig_Share_Pct"],
+      "as": ["Species_Key", "Share_Pct"]
     },
     {
-      "calculate": "datum.Metric_Key == 'Cattle_Share_Pct' ? 'Cattle %' : datum.Metric_Key == 'Sheep_Share_Pct' ? 'Sheep %' : datum.Metric_Key == 'Poultry_Share_Pct' ? 'Poultry %' : datum.Metric_Key == 'Pig_Share_Pct' ? 'Pig %' : '5-Yr Growth'",
-      "as": "Metric"
+      "calculate": "toNumber(datum.Share_Pct)",
+      "as": "Share_Pct"
     },
     {
-      "calculate": "datum.Metric == 'Cattle %' ? 1 : datum.Metric == 'Sheep %' ? 2 : datum.Metric == 'Poultry %' ? 3 : datum.Metric == 'Pig %' ? 4 : 5",
-      "as": "Dim_Order"
+      "calculate": "datum.Species_Key == 'Cattle_Share_Pct' ? 'Cattle' : datum.Species_Key == 'Sheep_Share_Pct' ? 'Sheep' : datum.Species_Key == 'Poultry_Share_Pct' ? 'Poultry' : 'Pig'",
+      "as": "Species"
     },
     {
-      "calculate": "datum.State_Short == 'SA' ? 'SA +51%' : datum.State_Short == 'VIC' ? 'VIC +48%' : datum.State_Short == 'NSW' ? 'NSW +40%' : datum.State_Short == 'QLD' ? 'QLD +36%' : datum.State_Short == 'TAS' ? 'TAS +17%' : datum.State_Short == 'WA' ? 'WA +8%' : datum.State_Short == 'NT' ? 'NT -16%' : ''",
-      "as": "Right_Label"
+      "calculate": "datum.State == 'Northern Territory' || datum.State == 'Queensland' || datum.State == 'Western Australia' ? 'Northern Pastoral' : 'Southern Mixed'",
+      "as": "Zone"
     },
     {
-      "calculate": "datum.State_Short == 'SA' ? datum.Metric_Value + 2.2 : datum.State_Short == 'VIC' ? datum.Metric_Value - 1.2 : datum.State_Short == 'NSW' ? datum.Metric_Value + 1.0 : datum.State_Short == 'QLD' ? datum.Metric_Value - 2.0 : datum.Metric_Value",
-      "as": "Metric_Y"
+      "calculate": "datum.State_Short == 'NT' && datum.Species == 'Cattle' ? '50% Dominance Line' : null",
+      "as": "Threshold_Label"
     }
   ],
-  "layer": [
-    {
-      "data": { "values": [{ "y": 0 }] },
-      "mark": {
-        "type": "rule",
-        "stroke": "#64748B",
-        "strokeDash": [4, 4],
-        "strokeWidth": 1.2
-      },
-      "encoding": {
-        "y": { "datum": 0 }
+  "facet": {
+    "row": {
+      "field": "Zone",
+      "type": "nominal",
+      "title": null,
+      "header": {
+        "orient": "top",
+        "labelAnchor": "start",
+        "labelFontSize": 12,
+        "labelFontWeight": "bold",
+        "labelColor": "#1E242B",
+        "labelPadding": 8
       }
-    },
-    {
-      "params": [
-        {
-          "name": "stateHover",
-          "select": { "type": "point", "fields": ["State"], "on": "mouseover", "clear": "mouseout" }
-        }
-      ],
-      "mark": { "type": "line", "interpolate": "linear" },
-      "encoding": {
-        "x": {
-          "field": "Metric",
-          "type": "nominal",
-          "sort": ["Cattle %", "Sheep %", "Poultry %", "Pig %", "5-Yr Growth"],
-          "title": null,
-          "axis": {
-            "labelAngle": 0,
-            "labelFontSize": 11,
-            "labelPadding": 8,
-            "grid": true,
-            "gridColor": "#CBD5E1",
-            "gridWidth": 1.5,
-            "tickSize": 5
-          }
+    }
+  },
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "spec": {
+    "width": 380,
+    "height": 115,
+    "layer": [
+      {
+        "transform": [
+          { "filter": "datum.Species == 'Cattle'" }
+        ],
+        "mark": {
+          "type": "rule",
+          "color": "#E2E8F0",
+          "strokeWidth": 1.5,
+          "strokeCap": "round"
         },
-        "y": {
-          "field": "Metric_Value",
-          "type": "quantitative",
-          "title": "State Metric Value (%)",
-          "scale": { "domain": [-25, 100] },
-          "axis": { "labelFontSize": 10.5, "titleFontSize": 11, "format": ".0f" }
-        },
-        "order": { "field": "Dim_Order", "type": "quantitative" },
-        "detail": { "field": "State", "type": "nominal" },
-        "color": {
-          "field": "Region",
-          "type": "nominal",
-          "title": "Farming Zone",
-          "scale": {
-            "domain": ["Southern Mixed", "Northern Pastoral"],
-            "range": ["#2B4C7E", "#8C4A27"]
+        "encoding": {
+          "y": {
+            "field": "State_Short",
+            "type": "nominal",
+            "title": null,
+            "sort": ["NT", "QLD", "WA", "TAS", "NSW", "ACT", "VIC", "SA"]
           },
-          "legend": { "orient": "top", "offset": 12, "titleFontSize": 10.5, "labelFontSize": 10 }
-        },
-        "strokeWidth": {
-          "condition": { "param": "stateHover", "empty": false, "value": 4.5 },
-          "value": 2.2
-        },
-        "opacity": {
-          "condition": { "param": "stateHover", "empty": false, "value": 1.0 },
-          "value": 0.65
-        },
-        "tooltip": [
-          { "field": "State", "type": "nominal", "title": "State / Territory" },
-          { "field": "Region", "type": "nominal", "title": "Agricultural Zone" },
-          { "field": "Metric", "type": "nominal", "title": "Metric" },
-          { "field": "Metric_Value", "type": "quantitative", "title": "Value (%)", "format": "+.1f" }
-        ]
-      }
-    },
-    {
-      "mark": { "type": "point", "filled": true, "size": 65 },
-      "encoding": {
-        "x": {
-          "field": "Metric",
-          "type": "nominal",
-          "sort": ["Cattle %", "Sheep %", "Poultry %", "Pig %", "5-Yr Growth"]
-        },
-        "y": { "field": "Metric_Value", "type": "quantitative" },
-        "color": { "field": "Region", "type": "nominal" },
-        "opacity": {
-          "condition": { "param": "stateHover", "empty": false, "value": 1.0 },
-          "value": 0.75
-        },
-        "tooltip": [
-          { "field": "State", "type": "nominal", "title": "State / Territory" },
-          { "field": "Region", "type": "nominal", "title": "Agricultural Zone" },
-          { "field": "Metric", "type": "nominal", "title": "Metric" },
-          { "field": "Metric_Value", "type": "quantitative", "title": "Value (%)", "format": "+.1f" }
-        ]
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.Metric == '5-Yr Growth' && datum.State_Short != 'ACT'"
+          "x": { "datum": 0 },
+          "x2": { "datum": 100 }
         }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 8,
-        "font": "DM Sans",
-        "fontSize": 10.5,
-        "fontWeight": "bold",
-        "halo": "#FFFFFF",
-        "haloWidth": 3
       },
-      "encoding": {
-        "x": { "field": "Metric", "type": "nominal" },
-        "y": { "field": "Metric_Y", "type": "quantitative" },
-        "text": { "field": "Right_Label", "type": "nominal" },
-        "color": { "field": "Region", "type": "nominal", "legend": null }
+      {
+        "mark": {
+          "type": "rule",
+          "stroke": "#64748B",
+          "strokeDash": [4, 4],
+          "strokeWidth": 1.2
+        },
+        "encoding": {
+          "x": { "datum": 50 }
+        }
+      },
+      {
+        "transform": [
+          { "filter": "datum.Threshold_Label != null" }
+        ],
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "dy": -13,
+          "font": "DM Sans",
+          "fontSize": 9.5,
+          "fontStyle": "italic",
+          "fontWeight": "bold",
+          "fill": "#475569",
+          "halo": "#FFFFFF",
+          "haloWidth": 2
+        },
+        "encoding": {
+          "x": { "datum": 50 },
+          "y": {
+            "field": "State_Short",
+            "type": "nominal",
+            "sort": ["NT", "QLD", "WA", "TAS", "NSW", "ACT", "VIC", "SA"]
+          },
+          "text": { "field": "Threshold_Label", "type": "nominal" }
+        }
+      },
+      {
+        "transform": [
+          { "filter": "datum.Share_Pct > 0" }
+        ],
+        "mark": {
+          "type": "circle",
+          "size": 110,
+          "opacity": 0.9,
+          "stroke": "#FFFFFF",
+          "strokeWidth": 1.5
+        },
+        "encoding": {
+          "y": {
+            "field": "State_Short",
+            "type": "nominal",
+            "title": null,
+            "sort": ["NT", "QLD", "WA", "TAS", "NSW", "ACT", "VIC", "SA"],
+            "axis": {
+              "labelFontSize": 11,
+              "labelFontWeight": "bold",
+              "labelPadding": 6
+            }
+          },
+          "x": {
+            "field": "Share_Pct",
+            "type": "quantitative",
+            "title": "Share of State Output (%)",
+            "scale": { "domain": [0, 100] },
+            "axis": {
+              "values": [0, 25, 50, 75, 100],
+              "format": ".0f",
+              "labelFontSize": 10.5,
+              "titleFontSize": 11
+            }
+          },
+          "color": {
+            "field": "Species",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Cattle", "Sheep", "Poultry", "Pig"],
+              "range": ["#0072B2", "#E69F00", "#009E73", "#CC79A7"]
+            },
+            "legend": {
+              "orient": "top",
+              "direction": "horizontal",
+              "title": null,
+              "columns": 4,
+              "labelFontSize": 10.5,
+              "symbolType": "circle",
+              "symbolSize": 90,
+              "symbolStrokeWidth": 2.2,
+              "columnPadding": 14,
+              "offset": 8
+            }
+          },
+          "order": {
+            "field": "Share_Pct",
+            "sort": "descending"
+          },
+          "tooltip": [
+            { "field": "State", "type": "nominal", "title": "State / Territory" },
+            { "field": "Zone", "type": "nominal", "title": "Farming Zone" },
+            { "field": "Species", "type": "nominal", "title": "Species" },
+            { "field": "Share_Pct", "type": "quantitative", "title": "Share of Output (%)", "format": ".1f" }
+          ]
+        }
       }
-    }
-  ],
+    ]
+  },
   "config": {
     "font": "DM Sans",
     "view": { "stroke": null }

@@ -1,9 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 380,
-  "height": 300,
-  "autosize": { "type": "fit-x", "contains": "padding" },
-  "padding": { "top": 10, "left": 10, "right": 35, "bottom": 5 },
+  "width": 400,
+  "height": 280,
+  "autosize": "pad",
+  "padding": { "top": 12, "left": 10, "right": 45, "bottom": 8 },
   "params": [
     {
       "name": "BumpSpecies",
@@ -57,8 +57,8 @@
           "field": "State_Short",
           "type": "nominal",
           "scale": {
-            "domain": ["QLD", "NSW", "VIC", "SA", "WA", "TAS", "NT", "ACT"],
-            "range": ["#2B4C7E", "#8C4A27", "#4B3B78", "#2E6F65", "#9B6B24", "#6B7280", "#A3485E", "#3B7A9E"]
+            "domain": ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "NT", "ACT"],
+            "range": ["#0F172A", "#D97706", "#334155", "#475569", "#64748B", "#94A3B8", "#CBD5E1", "#CBD5E1"]
           },
           "legend": null
         }
@@ -90,16 +90,16 @@
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 12,
+        "dx": 8,
         "font": "DM Sans",
         "fontSize": 11,
-        "fontWeight": "bold"
+        "fontWeight": "bold",
+        "fill": "#0F172A"
       },
       "encoding": {
         "x": { "field": "Year", "type": "ordinal" },
         "y": { "field": "Rank", "type": "ordinal" },
-        "text": { "field": "State_Short", "type": "nominal" },
-        "color": { "field": "State_Short", "type": "nominal" }
+        "text": { "field": "State_Short", "type": "nominal" }
       }
     }
   ],

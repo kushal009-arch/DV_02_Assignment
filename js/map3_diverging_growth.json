@@ -1,13 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 430,
-  "height": 320,
+  "height": 330,
   "autosize": { "type": "fit-x", "contains": "padding" },
   "padding": { "top": 5, "left": 5, "right": 5, "bottom": 5 },
   "projection": {
     "type": "equirectangular",
-    "center": [134, -28.5],
-    "scale": 590
+    "center": [133.5, -26.5],
+    "scale": 530
   },
   "layer": [
     {
@@ -68,7 +68,8 @@
           "title": "5-Yr Growth (%)",
           "scale": {
             "scheme": "purpleorange",
-            "domain": [-55, 55]
+            "domain": [-55, 55],
+            "domainMid": 0
           },
           "legend": {
             "orient": "top",
@@ -93,20 +94,20 @@
         "values": [
           { "lon": 133.5, "lat": -20.0, "label": "NT: -16.3%" },
           { "lon": 144.8, "lat": -23.0, "label": "QLD: +36.0%" },
-          { "lon": 135.5, "lat": -30.2, "label": "SA: +51.1% (Fastest)" },
-          { "lon": 144.3, "lat": -36.8, "label": "VIC: +47.5%" },
-          { "lon": 147.2, "lat": -32.2, "label": "NSW: +40.4%" },
+          { "lon": 135.0, "lat": -29.2, "label": "SA: +51.1%" },
+          { "lon": 144.5, "lat": -36.8, "label": "VIC: +47.5%" },
+          { "lon": 147.0, "lat": -32.0, "label": "NSW: +40.4%" },
           { "lon": 122.2, "lat": -25.5, "label": "WA: +8.5%" }
         ]
       },
       "mark": {
         "type": "text",
         "font": "DM Sans",
-        "fontSize": 10.5,
+        "fontSize": 10,
         "fontWeight": "bold",
         "fill": "#1E242B",
         "halo": "#FFFFFF",
-        "haloWidth": 3.0
+        "haloWidth": 2
       },
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
